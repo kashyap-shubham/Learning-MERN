@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId();
+const ObjectId = Schema.ObjectId;
 
 
 const User = new Schema({
@@ -15,8 +15,8 @@ const Todo = new Schema({
     userId: ObjectId
 });
 
-const UserModel = mongoose.model('User', UserCollection);
-const TodoModel = mongoose.model('Todo', TodoCollection);
+const UserModel = mongoose.model('UserCollection', User);
+const TodoModel = mongoose.model('TodoCollection', Todo);
 
 module.exports = {
     UserModel: UserModel,
