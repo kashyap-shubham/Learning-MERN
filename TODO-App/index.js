@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 const { UserModel, TodoModel } = require('./db');
@@ -10,12 +11,7 @@ const { inputValidation } = require('./inputValidation');
 app.use(express.json());
 
 // MongoDB connection
-mongoose.connect(process.env.DB_CONNECTION_STRING, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch((error) => {
+mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => console.log('Connected to MongoDB')).catch((error) => {
     console.error('Database connection failed:', error);
     process.exit(1); // Gracefully shut down the server on DB connection failure
 });
@@ -50,6 +46,56 @@ app.post("/signup", inputValidation, async (req, res) => {
         res.status(500).json({ message: "An error occurred during signup" });
     }
 });
+
+
+// Signin route
+app.post("/signin", inputValidation, async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Check if user exists
+        const existingUser = await UserModel.findOne({ email });
+        if (!existingUser) {
+            return res.status(404).json({
+                message: "User does not exist"
+            });
+        }
+
+        // Check password
+        const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
+        if (!isPasswordCorrect) {
+            return res.status(401).json({
+                message: "Invalid email or password"
+            });
+        }
+
+        // Generate JWT Token
+        let token;
+        try {
+            token = jwt.sign(
+                { id: existingUser._id.toString(), email: existingUser.email }, // Add more claims if necessary
+                process.env.JWT_SECRET,
+                { expiresIn: process.env.JWT_EXPIRATION || '1h' } // Token expires in 1 hour
+            );
+        } catch(err) {
+            console.log('Error generating token:', err);
+            return res.status(500).json({ message: "Error generating authentication token"});
+        }
+        
+        // Respond with the token (Optionally, you can set a cookie)
+        res.status(200).json({
+            message: "Signin successful",
+            token: token // Or set cookie with: res.cookie('token', token, { httpOnly: true });
+        });
+
+    } catch (error) {
+        console.error("Error during signin process:", error);
+        res.status(500).json({
+            message: "An internal Server error occured, please try again later"
+        });
+    }
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
