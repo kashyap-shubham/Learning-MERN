@@ -16,6 +16,12 @@ function inputValidation(req, res, next) {
         password: z.string().min(3).max(30)
     });
 
+    const todoBody = z.object({
+        title: z.string().min(3).max(100),
+        status: z.boolean()
+    });
+
+
    let success;
    
    if(req.originalUrl === '/signup') {
@@ -25,6 +31,11 @@ function inputValidation(req, res, next) {
 
    if(req.originalUrl === '/signin') {
     parseData = signinBody.safeParse(req.body);
+    success = parseData.success;
+   }
+
+   if(req.originalUrl === '/add-todo') {
+    parseData = todoBody.safeParse(req.body);
     success = parseData.success;
    }
 

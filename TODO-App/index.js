@@ -6,13 +6,15 @@ const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 const { UserModel, TodoModel } = require('./db');
 const { inputValidation } = require('./inputValidation');
+const { auth } = require('./auth');
+
 
 // Middleware to parse JSON bodies
 app.use(express.json());
 
 // MongoDB connection
 mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => console.log('Connected to MongoDB')).catch((error) => {
-    console.error('Database connection failed:', error);
+    console.error('Database connection failed:', error.message);
     process.exit(1); // Gracefully shut down the server on DB connection failure
 });
 
@@ -42,7 +44,7 @@ app.post("/signup", inputValidation, async (req, res) => {
         res.status(201).json({ message: "Signup successful" });
 
     } catch (error) {
-        console.error('Error during signup:', error);
+        console.error('Error during signup:', error.message);
         res.status(500).json({ message: "An error occurred during signup" });
     }
 });
@@ -89,12 +91,47 @@ app.post("/signin", inputValidation, async (req, res) => {
         });
 
     } catch (error) {
-        console.error("Error during signin process:", error);
+        console.error("Error during signin process:", error.message);
         res.status(500).json({
             message: "An internal Server error occured, please try again later"
         });
     }
 });
+
+
+// Adding todo Route
+app.post("/add-todo", inputValidation, auth, async (req, res) => {
+    const userId = req.userId;
+    const { title, status } = req.body;
+
+    // Check if required fields are provided
+    if (!title || !status) {
+        return res.status(400).json({
+            message: "Title and status are required to create a todo"
+        });
+    }
+
+    try {
+        // Create the todo
+        await TodoModel.create({
+            title,
+            status,
+            userId
+        });
+
+        // Success response
+        res.status(201).json({
+            message: "Todo Created Successfully"
+        });
+
+    } catch (error) {
+        console.error('Error creating todo:', error.message); // Log the error for debugging
+        res.status(500).json({
+            message: "Failed to create todo, please try again later"
+        });
+    }
+});
+
 
 
 // Start the server
