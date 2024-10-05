@@ -18,7 +18,7 @@ function inputValidation(req, res, next) {
 
     const todoBody = z.object({
         title: z.string().min(3).max(100),
-        status: z.boolean()
+        status: z.string().min(3).max(6)
     });
 
 

@@ -23,6 +23,7 @@ function auth(req, res, next) {
 
         // Attach the user ID to the request for further use
         req.userId = decodedToken.id;
+        req.email = decodedToken.email;
         next();
     } catch (error) {
         if (error.name === 'TokenExpiredError') {

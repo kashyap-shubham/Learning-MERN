@@ -11,7 +11,7 @@ const User = new Schema({
 
 const Todo = new Schema({
     title: String,
-    status: Boolean,
+    status: String,
     userId: ObjectId
 });
 

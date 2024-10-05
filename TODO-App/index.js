@@ -99,7 +99,7 @@ app.post("/signin", inputValidation, async (req, res) => {
 });
 
 
-// Adding todo Route
+// Add-todo Route
 app.post("/add-todo", inputValidation, auth, async (req, res) => {
     const userId = req.userId;
     const { title, status } = req.body;
@@ -132,6 +132,33 @@ app.post("/add-todo", inputValidation, auth, async (req, res) => {
     }
 });
 
+
+// Check all todos route
+app.get("/check-todos", auth, async (req, res) => {
+    const userId = req.userId;
+
+    try {
+        // Find todos by userId and return plain JavaScript objects for better performance
+        const todos = await TodoModel.find({ userId }).lean();
+
+        // If no todos found, return an empty array (or use 404 if you prefer)
+        if (!todos || todos.length === 0) {
+            return res.status(200).json({
+                message: "No todos found for this user",
+                todos: []
+            });
+        }
+
+        // Success response with found todos
+        res.status(200).json({ todos });
+    } catch (error) {
+        // Log the error message with more context
+        console.error(`Error fetching todos for user ${userId}:`, error.message);
+        res.status(500).json({
+            message: "An internal server error occurred while fetching todos"
+        });
+    }
+});
 
 
 // Start the server
