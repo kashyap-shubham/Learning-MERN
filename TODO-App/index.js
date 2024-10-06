@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
+const path = require('path');
 const { UserModel, TodoModel } = require('./db');
 const { inputValidation } = require('./inputValidation');
 const { auth } = require('./auth');
@@ -12,10 +13,23 @@ const { auth } = require('./auth');
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+// Serve static files from the 'public' directory (e.g., CSS, JS, images)
+app.use(express.static(path.join(__dirname, 'public')));
+
 // MongoDB connection
 mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => console.log('Connected to MongoDB')).catch((error) => {
     console.error('Database connection failed:', error.message);
     process.exit(1); // Gracefully shut down the server on DB connection failure
+});
+
+
+// Route to serve index.html from the 'public' directory
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'), (err) => {
+        if (err) {
+            res.status(500).send("An error occurred while serving the homepage.");
+        }
+    });
 });
 
 
