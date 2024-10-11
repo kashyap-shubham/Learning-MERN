@@ -1,5 +1,28 @@
-div {
+#main {
+    display: flex;
+    background: black;
+}
+
+#left-sidepanel {
     background-color: red;
-    display: block;
+    flex-direction: column;
     background: red;
+}
+
+#topbar {
+    background-color: blue;
+    flex-direction: row;
+    background: blue;
+}
+
+#main-content {
+    background-color: yellow;
+    display: block;
+    background: yellow;
+}
+
+#right-sidepanel {
+    background-color: green;
+    display: block;
+    background: green;
 }
