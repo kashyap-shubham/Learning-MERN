@@ -3,107 +3,108 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Task management board for managing customer stories and tasks."
+    <title>Login/Signup - Todo App</title>
+    <link rel="stylesheet" href="login.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
     />
-    <title>Task Board - Customer Stories Q4</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMPjENeX4xKfLr6iLidVklXiwD94vA5Z8EvJ53"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <div class="container">
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <div class="sidebar-header">
-          <h1>TODO</h1>
-        </div>
-        <nav aria-label="Main navigation">
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Profile</a></li>
-          </ul>
-        </nav>
-
-        <!-- Favorites section -->
-        <section class="sidebar-section">
-          <h3>Favorites</h3>
-          <!-- <ul>
-                    <li><a href="#">Recruiting weekly meeting</a></li>
-                    <li><a href="#">Website Launch</a></li>
-                    <li><a href="#">Rebranding video</a></li>
-                    <li><a href="#">Marketing</a></li>
-                    <li><a href="#">Email calendar</a></li>
-                    <li><a href="#">Website Design Requests</a></li>
-                    <li><a href="#">Customer Stories - Q4</a></li>
-                </ul> -->
-        </section>
-        <button class="invite-btn">Invite teammates</button>
-      </aside>
-
-      <!-- Main content -->
-      <main>
-        <!-- Top bar -->
-        <div class="top-bar">
-          <h2>Project Name</h2>
-        </div>
-
-        <!-- Board -->
-        <section class="board">
-          <!-- To Do Section -->
-          <div class="board-column">
-            <h3>TO-DO</h3>
-            <div class="add-task"></div>
-            <!-- <div class="task">
-                        <p>Contact client for outline</p>
-                        <span>2h</span>
-                    </div> -->
-
-            <!-- Task Input box-->
-            <div id="modal" class="modal">
-              <div class="modal-content">
-                <span id="closeModal" class="close-btn">&times;</span>
-                <h2>Add a Task</h2>
-                <label for="taskInput">Task Name:</label>
-                <input
-                  type="text"
-                  id="taskInput"
-                  placeholder="Enter your task..."
-                />
-                <button id="submitTaskBtn">Submit</button>
-              </div>
+    <div class="main-container">
+      <div class="form-wrapper">
+        <!-- Login Form -->
+        <div id="loginForm" class="form-container active">
+          <h2>Login to Your Account</h2>
+          <form id="login">
+            <div class="input-group">
+              <i class="fas fa-envelope"></i>
+              <input
+                type="email"
+                id="loginEmail"
+                placeholder="Email Address"
+                required
+              />
             </div>
 
-            <!-- Button to open the modal -->
-            <button id="openModalBtn">+ Add Task</button>
-          </div>
+            <div class="input-group">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+                required
+              />
+            </div>
 
-          <!-- Doing Section -->
-          <div class="board-column">
-            <h3>Progress</h3>
-            <!-- <div class="task">
-                        <p>Hold introductory meeting</p>
-                        <span class="tag medium-risk">Medium</span>
-                        <span class="risk-status">At Risk</span>
-                        <span>2h</span>
-                    </div> -->
+            <button type="submit" class="btn">Login</button>
 
-            <!-- <button class="add-task">+ Add Task</button> -->
-          </div>
+            <p class="switch-form">
+              Don't have an account? <a href="#" id="showSignup">Sign up</a>
+            </p>
+          </form>
+        </div>
 
-          <!-- Done Section -->
-          <div class="board-column">
-            <h3>Completed</h3>
-            <!-- <div class="task">
-                        <p>Determine project goal</p>
-                        <span class="tag low-risk">Low</span>
-                        <span class="risk-status on-track">On Track</span>
-                    </div>
-                    
-                    <button class="add-task">+ Add Task</button> -->
-          </div>
-        </section>
-      </main>
+        <!-- Signup Form -->
+        <div id="signupForm" class="form-container">
+          <h2>Create a New Account</h2>
+          <form id="signup">
+            <div class="input-group">
+              <i class="fas fa-user"></i>
+              <input
+                type="text"
+                id="signupName"
+                placeholder="Full Name"
+                required
+              />
+            </div>
+
+            <div class="input-group">
+              <i class="fas fa-envelope"></i>
+              <input
+                type="email"
+                id="signupEmail"
+                placeholder="Email Address"
+                required
+              />
+            </div>
+
+            <div class="input-group">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                id="signupPassword"
+                placeholder="Password"
+                required
+              />
+            </div>
+
+            <div class="input-group">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn">Sign up</button>
+
+            <p class="switch-form">
+              Already have an account? <a href="#" id="showLogin">Login</a>
+            </p>
+          </form>
+        </div>
+      </div>
     </div>
-    <script src="script.js" type="text/javascript"></script>
+
+    <script src="login.js"></script>
   </body>
 </html>

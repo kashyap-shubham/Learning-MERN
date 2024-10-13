@@ -1,0 +1,147 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #6E45E2, #88D3CE);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+.form-wrapper {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15);
+    width: 400px;
+    max-width: 100%;
+    padding: 40px;
+    position: relative;
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+/* Form styling */
+.form-container {
+    display: none;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.form-container.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #bbb;
+}
+
+input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+input:focus {
+    border-color: #6E45E2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #6E45E2;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    background-color: #5A38C3;
+}
+
+.switch-form {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.switch-form a {
+    color: #6E45E2;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.switch-form a:hover {
+    text-decoration: underline;
+}
+
+/* Animation for form switch */
+.form-container {
+    transform: translateY(40px);
+    opacity: 0;
+}
+
+.form-container.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.form-wrapper.active {
+    transform: translateY(-20px);
+    box-shadow: 0px 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .form-wrapper {
+        padding: 30px 20px;
+        width: 90%;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}

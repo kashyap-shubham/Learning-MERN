@@ -40,7 +40,7 @@ function inputValidation(req, res, next) {
    }
 
    if(!success) {
-    res.json({
+    res.status(403).json({
         message: "Invalid Inputs"
     });
    }
