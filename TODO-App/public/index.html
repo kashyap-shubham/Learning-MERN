@@ -9,7 +9,6 @@
     />
     <title>Task Board - Customer Stories Q4</title>
     <link rel="stylesheet" type="text/css" href="styles.css" />
-    <script src="script.js" type="text/javascript"></script>
   </head>
   <body>
     <div class="container">
@@ -53,12 +52,29 @@
           <!-- To Do Section -->
           <div class="board-column">
             <h3>TO-DO</h3>
+            <div class="add-task"></div>
             <!-- <div class="task">
                         <p>Contact client for outline</p>
                         <span>2h</span>
                     </div> -->
 
-            <button class="add-task">+ Add Task</button>
+            <!-- Task Input box-->
+            <div id="modal" class="modal">
+              <div class="modal-content">
+                <span id="closeModal" class="close-btn">&times;</span>
+                <h2>Add a Task</h2>
+                <label for="taskInput">Task Name:</label>
+                <input
+                  type="text"
+                  id="taskInput"
+                  placeholder="Enter your task..."
+                />
+                <button id="submitTaskBtn">Submit</button>
+              </div>
+            </div>
+
+            <!-- Button to open the modal -->
+            <button id="openModalBtn">+ Add Task</button>
           </div>
 
           <!-- Doing Section -->
@@ -88,5 +104,6 @@
         </section>
       </main>
     </div>
+    <script src="script.js" type="text/javascript"></script>
   </body>
 </html>
