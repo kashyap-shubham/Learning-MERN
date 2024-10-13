@@ -37,11 +37,11 @@ document.getElementById('login').addEventListener('submit', async function(event
     }
 
     const token = data.token;
-    localStorage.setItem('token', token);
+    localStorage.setItem('token', data.token);
 
     alert(`${data.message} for ${loginEmail}`);
 
-    window.location.href = 'localhost:3000/dashboard.html';
+    window.location.href = `/dashboard?token=${encodeURIComponent(data.token)}`;
 });
 
 // Handle Signup form submission
@@ -59,7 +59,7 @@ document.getElementById('signup').addEventListener('submit', async function(even
 
     alert(`Signup attempt for Name: ${name}, Email: ${email}`);
     // Add actual signup logic here (e.g., send data to backend)
-    const respone = fetch('/signup', {
+    const respone = await fetch('/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -78,5 +78,5 @@ document.getElementById('signup').addEventListener('submit', async function(even
 
     alert(`${data.message} for Name: ${name}, Email: ${email}`);  
 
-    window.location.href = 'localhost:3000/login.html';
+    window.location.href = '/';
 });

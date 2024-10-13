@@ -16,6 +16,9 @@ app.use(express.json());
 // Serve static files from the 'public' directory (e.g., CSS, JS, images)
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware to parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true }));
+
 // MongoDB connection
 mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => console.log('Connected to MongoDB')).catch((error) => {
     console.error('Database connection failed:', error.message);
@@ -26,6 +29,14 @@ mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => console.log('Conne
 // Route to serve index.html from the 'public' directory
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'), (err) => {
+        if (err) {
+            res.status(500).send("An error occurred while serving the homepage.");
+        }
+    });
+});
+
+app.get("/dashboard", auth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'dashboard.html'), (err) => {
         if (err) {
             res.status(500).send("An error occurred while serving the homepage.");
         }
