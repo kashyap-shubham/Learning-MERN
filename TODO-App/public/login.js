@@ -39,7 +39,7 @@ document.getElementById('login').addEventListener('submit', async function(event
     const token = data.token;
     localStorage.setItem('token', token);
 
-    alert(`Login successful for ${loginEmail}`);
+    alert(`${data.message} for ${loginEmail}`);
 
     window.location.href = 'localhost:3000/dashboard.html';
 });
@@ -76,7 +76,7 @@ document.getElementById('signup').addEventListener('submit', async function(even
         alert(data.message);
     }
 
-    alert(`Signup successful for Name: ${name}, Email: ${email}`);  
+    alert(`${data.message} for Name: ${name}, Email: ${email}`);  
 
     window.location.href = 'localhost:3000/login.html';
 });
