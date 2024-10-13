@@ -16,6 +16,10 @@ closeModalBtn.onclick = function() {
     modal.style.display = "none";
 }
 
+function closeModal() {
+    modal.style.display = "none";
+}
+
 // Close the modal if the user clicks outside the modal content
 window.onclick = function(event) {
     if (event.target === modal) {
@@ -24,24 +28,48 @@ window.onclick = function(event) {
 }
 
 // Add a task when the submit button is clicked
-submitTaskBtn.onclick = function() {
+submitTaskBtn.onclick = async function() {
     const task = taskInput.value;
     if (task !== "") {
-        addTask(task);
-
-        fetch('/add-task', {
+        // fetch('/add-task', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         // authorization: 'Bearer ' + localStorage.getItem('token'),
+        //         authorization: localStorage.getItem('token')
+        //     },
+        //     body: JSON.stringify({
+        //         task: task,
+        //         status: "created"
+        //     })
+        // }).then(response => response.json())
+        // .then(data => console.log(data)); 
+        
+        const response = await fetch('/add-task', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                // authorization: 'Bearer ' + localStorage.getItem('token'),
+                authorization: localStorage.getItem('token')
             },
             body: JSON.stringify({
-                task: task
+                task: task,
+                status: "created"
             })
-        }).then(response => response.json())
-        .then(data => console.log(data));  
+        });
 
+        const data = await response.json();
+        console.log(data);
+
+        if(!data.status === "201") {
+            alert(data.message);
+            closeModal();
+            return;
+        }
+
+        addTask(task);
         taskInput.value = "";
-        modal.style.display = "none";
+        closeModal();
     }
 }
 
