@@ -41,7 +41,7 @@ document.getElementById('login').addEventListener('submit', async function(event
 
     alert(`${data.message} for ${loginEmail}`);
 
-    window.location.href = `/dashboard?token=${encodeURIComponent(data.token)}`;
+    window.location.href = `/dashboard`;
 });
 
 // Handle Signup form submission
