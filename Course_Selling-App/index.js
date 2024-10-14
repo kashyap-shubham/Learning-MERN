@@ -1,12 +1,10 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 const { userRouter } = require('./routes/user');
 const { courseRouter } = require('./routes/course');
 const { adminRouter } = require('./routes/admin');
+
 app.use(express.json());
 
 app.use('/api/v1/user', userRouter);
