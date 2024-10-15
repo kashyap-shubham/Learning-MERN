@@ -10,15 +10,15 @@ adminRouter.post('/singin', inputValidation, auth, async (req, res) => {
 
     try {
         // check if admin exists
-        const existingUser = await adminModel.findOne({ email });
-        if (!existingUser) {
+        const existingAdmin = await adminModel.findOne({ email });
+        if (!existingAdmin) {
             return res.status(404).json({
                 message: "User does not exist"
             });
         }
 
         // check for password match
-        const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
+        const isPasswordCorrect = await bcrypt.compare(password, existingAdmin.password);
         if (!isPasswordCorrect) {
             return res.status(401).json({
                 message: "Invalid email or password"
@@ -29,8 +29,8 @@ adminRouter.post('/singin', inputValidation, auth, async (req, res) => {
         let token;
         try {
             token = jwt.sign(
-                { id: existingUser._id, email: existingUser.email }, // Add more claims if necessary
-                process.env.JWT_SECRET,
+                { id: existingAdmin._id, email: existingAdmin.email }, // Add more claims if necessary
+                process.env.JWT_SECRET_ADMIN,
                 { expiresIn: process.env.JWT_EXPIRATION || '1h' } // Token expires in 1 hour
                 );
         } catch(err) {
@@ -59,8 +59,8 @@ adminRouter.post('/singup', inputValidation, auth, async (req, res) => {
     try {
 
         // Check if the user already exists
-        const existingUser = await UserModel.findOne({ email });
-        if (existingUser) {
+        const existingAdmin = await adminModel.findOne({ email });
+        if (existingAdmin) {
             return res.status(409).json({ message: "User with this email already exists" });
         }
 

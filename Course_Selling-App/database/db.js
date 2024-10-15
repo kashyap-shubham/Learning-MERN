@@ -2,14 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
-
-// MongoDB connection
-mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => console.log('Connected to MongoDB')).catch((error) => {
-    console.error('Database connection failed:', error.message);
-    process.exit(1); // Gracefully shut down the server on DB connection failure
-});
-
-
 const userSchema = new Schema({
     email: { type: String, unique: true },
     password: String,
