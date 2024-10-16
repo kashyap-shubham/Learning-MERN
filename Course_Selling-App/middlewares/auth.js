@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 function auth(req, res, next) {
     const authHeader = req.headers.authorization;
 
-    if(!authheader) {
+    if(!authHeader) {
         return res.status(401).json({
             message: "Authorization token missing or malformed"
         });

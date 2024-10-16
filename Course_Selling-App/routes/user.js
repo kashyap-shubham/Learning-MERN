@@ -4,6 +4,7 @@ const { userModel } = require("../database/db");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+// user singup route
 userRouter.post('/signup', auth, async (req, res) => {
     const { email, password, firstName, lastName } = req.body; // add zod validation here
 
@@ -35,7 +36,7 @@ userRouter.post('/signup', auth, async (req, res) => {
     }
 });
 
-
+// user signin route
 userRouter.post('/signin', auth, async (req, res) => {
     const { email, password } = req.body; // add zod validation here
 

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const adminRouter = Router();
 
-// signing route
+// admin signing route
 adminRouter.post('/singin', inputValidation, auth, async (req, res) => {
     const { email, password } = req.body; // add zod validation here
 
@@ -13,7 +13,7 @@ adminRouter.post('/singin', inputValidation, auth, async (req, res) => {
         const existingAdmin = await adminModel.findOne({ email });
         if (!existingAdmin) {
             return res.status(404).json({
-                message: "User does not exist"
+                message: "Admin does not exist"
             });
         }
 
@@ -52,7 +52,7 @@ adminRouter.post('/singin', inputValidation, auth, async (req, res) => {
     }
 });
 
-// signup route
+// admin signup route
 adminRouter.post('/singup', inputValidation, auth, async (req, res) => {
     const { email, password, firstName, lastName } = req.body; // add zod validation here
 
@@ -61,7 +61,7 @@ adminRouter.post('/singup', inputValidation, auth, async (req, res) => {
         // Check if the user already exists
         const existingAdmin = await adminModel.findOne({ email });
         if (existingAdmin) {
-            return res.status(409).json({ message: "User with this email already exists" });
+            return res.status(409).json({ message: "Admin with this email already exists" });
         }
 
         // Hash the password with 10 salt rounds
